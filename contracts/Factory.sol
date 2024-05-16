@@ -33,28 +33,27 @@ contract Factory {
     }
 
     function createPool(address _owner, address _tokenA, address _tokenB, uint256 _amountA, uint256 _amountB, uint256 _priceA, uint256 _priceB) public {
-        pools.push(new Pool(_owner, _tokenA, _tokenB, address (lpToken), _amountA, _amountB, _priceA, _priceB));
+        pools.push(new Pool(_owner, _tokenA, _tokenB, address(lpToken), _amountA, _amountB, _priceA, _priceB));
     }
-    
+
     function getPoolData() public view returns (PoolData[] memory) {
-    PoolData[] memory returnPoolData = new PoolData[](pools.length);
+        PoolData[] memory returnPoolData = new PoolData[](pools.length);
 
-    for (uint256 i = 0; i < pools.length; i++) {
-        uint tokenRatios;
-        (string memory tokenAName, string memory tokenBName, uint256 tokenPriceA, uint256 tokenPriceB) = Pool(pools[i]).getPoolData();
+        for (uint256 i = 0; i < pools.length; i++) {
+            uint tokenRatios;
+            (string memory tokenAName, string memory tokenBName, uint256 tokenPriceA, uint256 tokenPriceB) = Pool(pools[i]).getPoolData();
+            
+            if (tokenPriceB != 0) {
+                tokenRatios = (tokenPriceA * (10 ** 18)) / tokenPriceB;
+            } else {
+                tokenRatios = 0;
+            }
 
-        // Check for division by zero
-        if (tokenPriceB != 0) {
-            tokenRatios = tokenPriceA * (10**18) / tokenPriceB;
-        } else {
-            tokenRatios = 0;
+            returnPoolData[i] = PoolData(tokenAName, tokenBName, tokenPriceA + tokenPriceB, tokenRatios, tokenPriceA + tokenPriceB);
         }
 
-        returnPoolData[i] = PoolData(tokenAName, tokenBName, tokenPriceA + tokenPriceB, tokenRatios, tokenPriceA + tokenPriceB);
+        return (returnPoolData);
     }
-
-    return (returnPoolData);
-}
 
     function getPools() public view returns (Pool[] memory) {
         return pools;
