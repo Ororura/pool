@@ -33,25 +33,30 @@ contract Factory {
     }
 
     function getPoolData() public view returns (string[] memory, uint256[] memory, uint256[] memory, uint256[] memory) {
-        string[] memory tokensNames = new string[](pools.length * 2);
-        uint256[] memory totalTokenPrices = new uint256[](pools.length);
-        uint256[] memory tokenRatios = new uint256[](pools.length);
-        uint256[] memory absoluteValues = new uint256[](pools.length);
+    string[] memory tokensNames = new string[](pools.length * 2);
+    uint256[] memory totalTokenPrices = new uint256[](pools.length);
+    uint256[] memory tokenRatios = new uint256[](pools.length);
+    uint256[] memory absoluteValues = new uint256[](pools.length);
 
-        for (uint256 i = 0; i < pools.length; i++) {
-            (string memory tokenAName, string memory tokenBName, uint256 tokenPriceA, uint256 tokenPriceB) = Pool(pools[i]).getPoolData();
-            tokensNames[i * 2] = tokenAName;
-            tokensNames[i * 2 + 1] = tokenBName;
+    for (uint256 i = 0; i < pools.length; i++) {
+        (string memory tokenAName, string memory tokenBName, uint256 tokenPriceA, uint256 tokenPriceB) = Pool(pools[i]).getPoolData();
+        tokensNames[i * 2] = tokenAName;
+        tokensNames[i * 2 + 1] = tokenBName;
 
-            totalTokenPrices[i] = tokenPriceA + tokenPriceB;
+        totalTokenPrices[i] = tokenPriceA + tokenPriceB;
 
-            tokenRatios[i] = tokenPriceA / tokenPriceB;
-
-            absoluteValues[i] = totalTokenPrices[i];
+        // Check for division by zero
+        if (tokenPriceB != 0) {
+            tokenRatios[i] = tokenPriceA * (10**18) / tokenPriceB;
+        } else {
+            tokenRatios[i] = 0;
         }
 
-        return (tokensNames, totalTokenPrices, tokenRatios, absoluteValues);
+        absoluteValues[i] = totalTokenPrices[i];
     }
+
+    return (tokensNames, totalTokenPrices, tokenRatios, absoluteValues);
+}
 
     function getTokensAddress() public view returns (address[] memory) {
         address[] memory returnData = new address[](4);
