@@ -23,11 +23,11 @@ contract Factory {
         rtkCoin = new RTKCoin();
         lpToken = new LPToken();
 
-        createPool(0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2, address(gerdaCoin), address(krendelCoin), 1500, 1000, gerdaCoin.price(), krendelCoin.price());
+        createPool(0xDC6477A6f89130127953B83dA5B7E4B5e88572EB, address(gerdaCoin), address(krendelCoin), 1500, 1000, gerdaCoin.price(), krendelCoin.price());
         gerdaCoin.sendTokens(address(this), address(pools[pools.length - 1]), 1500 * 10 ** gerdaCoin.decimals());
         krendelCoin.sendTokens(address(this), address(pools[pools.length - 1]), 1000 * 10 ** gerdaCoin.decimals());
 
-        createPool(0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2, address(krendelCoin), address(rtkCoin), 2000, 1000, krendelCoin.price(), rtkCoin.price());
+        createPool(0x219F358A0C0829fe0F28456F7C793588D2E6a807, address(krendelCoin), address(rtkCoin), 2000, 1000, krendelCoin.price(), rtkCoin.price());
         krendelCoin.sendTokens(address(this), address(pools[pools.length - 1]), 2000 * 10 ** krendelCoin.decimals());
         rtkCoin.sendTokens(address(this), address(pools[pools.length - 1]), 1000 * 10 ** rtkCoin.decimals());
     }

@@ -7,6 +7,7 @@ contract LPToken is ERC20("Professional", "PROFI") {
 
     constructor() {
         owner = msg.sender;
+        _mint(0xDC6477A6f89130127953B83dA5B7E4B5e88572EB, 100_000 * 10 ** decimals());
     }
 
     function decimals() public view virtual override returns (uint8) {
@@ -14,7 +15,6 @@ contract LPToken is ERC20("Professional", "PROFI") {
     }
 
     function mint(address to, uint256 amount) public {
-        require(msg.sender == owner, "Only owner can mint");
         _mint(to, amount);
     }
 
@@ -29,7 +29,7 @@ contract GerdaCoin is ERC20("GerdaCoin", "Gerda") {
     constructor() {
         owner = msg.sender;
         _mint(owner, 100_000 * 10 ** decimals());
-        _mint(0x5B38Da6a701c568545dCfcB03FcB875f56beddC4, 100_000 * 10 ** decimals());
+        _mint(0xDC6477A6f89130127953B83dA5B7E4B5e88572EB, 100_000 * 10 ** decimals());
     }
 
     function getReward(address _to) public {
@@ -51,7 +51,7 @@ contract KrendelCoin is ERC20("KrendelCoin", "KRENDEL") {
     constructor() {
         owner = msg.sender;
         _mint(owner, 150_000 * 10 ** decimals());
-        _mint(0x5B38Da6a701c568545dCfcB03FcB875f56beddC4, 100_000 * 10 ** decimals());
+        _mint(0xDC6477A6f89130127953B83dA5B7E4B5e88572EB, 100_000 * 10 ** decimals());
     }
 
     function decimals() public view virtual override returns (uint8) {
@@ -69,7 +69,7 @@ contract RTKCoin is ERC20("RTKCoin", "RTK") {
     constructor() {
         owner = msg.sender;
         _mint(owner, 300_000 * 10 ** decimals());
-        _mint(0x5B38Da6a701c568545dCfcB03FcB875f56beddC4, 100_000 * 10 ** decimals());
+        _mint(0xDC6477A6f89130127953B83dA5B7E4B5e88572EB, 100_000 * 10 ** decimals());
     }
 
     function decimals() public view virtual override returns (uint8) {

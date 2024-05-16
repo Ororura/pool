@@ -15,7 +15,7 @@ contract Staking {
 
     function stake(uint256 amount) public {
         require(amount > 0, "Amount must be greater than 0");
-        LPToken(lpToken).transferFrom(msg.sender, address(this), amount);
+        LPToken(lpToken).sendTokens(msg.sender, address(this), amount);
         stakedBalances[msg.sender] += amount;
         lastRewardTime[msg.sender] = block.timestamp;
     }
