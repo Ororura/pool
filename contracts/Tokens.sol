@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
-import "contracts/ERC20.sol";
+import "./ERC20.sol";
 
 contract LPToken is ERC20("Professional", "PROFI") {
     address public owner;

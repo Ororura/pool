@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
-import "contracts/Factory.sol";
-import "contracts/Pool.sol";
-import "contracts/ERC20.sol";
+import "./Factory.sol";
+import "./Pool.sol";
 
 contract Router {
     Factory public factory;
